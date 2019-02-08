@@ -6,7 +6,7 @@ public class WhackAMole {
 	// Instances variables for WhackAMole class
 	int score;
 	int molesLeft;
-	int attemptsLeft;
+	static int attemptsLeft;
 	static char moleGrid[][];
 	
 	// Constructor for the WhackAMole class
@@ -17,8 +17,8 @@ public class WhackAMole {
 		// molesLeft = 10;
 		attemptsLeft = whacksAllowed;
 		
-		// Print out to confirm passed parameters.
-		System.out.println("You have " + whacksAllowed + " attempts to find 10 moles.");
+//		// Print out to confirm passed parameters.
+//		System.out.println("You have " + whacksAllowed + " attempts to find 10 moles.");
 
 		// Initialize the moleGrid.
 		moleGrid = new char[gridDimension][gridDimension];	
@@ -40,10 +40,10 @@ public class WhackAMole {
 		molesLeft++;
 
 		if (moleGrid[row][col] == 'M') {
-			System.out.println("You have successfully placed a mole at coordinates.");
+			// System.out.println("You have successfully placed a mole at coordinates.");
 			return true;
 		} else {
-			System.out.println("Error: A mole was NOT placed at the coordinates.");
+			// System.out.println("Error: A mole was NOT placed at the coordinates.");
 			return false;
 
 		}
@@ -123,69 +123,51 @@ public class WhackAMole {
 			System.out.println();
 		}
 	}
-		
-		
-//		for ( int row = 0; row < moleGrid.length; row++) {
-//			for (int col = 0; col < moleGrid[row].length; col++) {
-//				moleGrid[row][col] = 'M';	
-//			}
-//		}
-		
-//		for (int row = 0; row < moleGrid.length; row++) {
-//			for (int col = 0; col < moleGrid[row].length; col++) {
-//				
-//				moleGrid[row][col] = '*';
-//				System.out.print(moleGrid[row][col] + "\t");
-//			}
-//			System.out.println();
-//		}
+
 	
-	
-	// Methods
-	// public static void 
-	
-	
+	// Main method
 	public static void main(String[] args) {
 		
 		
 		WhackAMole myGame = new WhackAMole(50,10);
 		
 		// Randomly place 10 moles in the moleGrid
-		
-		// Initialize an integer array for the random coordinates to be used for mole placement.
-		int[][] moleLocation = new int[10][10];
-		
-		// Using the Math.random method create x and y coordinates for the mole location array. 
-		int number = 1;
 		int[] x_coor = new int[10];
 		int[] y_coor = new int[10];
 		
+		// Using the Math.random method create x and y coordinates for the mole location array. 
 		for (int i = 0; i < 10; i++) {
 			x_coor[i] = (int)(Math.random() * 9 + 1);
 			y_coor[i] = (int)(Math.random() * 9 + 1);
 			myGame.place(x_coor[i], y_coor[i]);
 		}
-		
-		
+		// Print Grid for verification of moles.
 		myGame.printGridToUser();
-		System.out.println("Please enter a x and y coordinate at number 0-9:");
-		Scanner inputFromUser = new Scanner(System.in);
-		int input = inputFromUser.nextInt();
 		
-//		char[][] moleLocation = new char[10][10];
-//		
-//		// x Coordinates Randomization 
-//		int[] x_coor = new int[10];
-//		int[] y_coor = new int[10];
-//		// Generates 10 Random Numbers in the range 1-10
-//		for (int i = 0; i < x_coor.length; i++) {
-//			x_coor[i] = (int)(Math.random()*10 + 1);
-//			y_coor[i] = (int)(Math.random()*10 + 1);
-//			moleLocation[x_coor[i]][y_coor[i]] = 'M';
-//			System.out.println("You will have a " + moleLocation[x_coor[i]][y_coor[i]] + " at each of the following coordinates: " + x_coor[i] + ", " + y_coor[i]);
-//		} // end for loop
-//		System.out.println();	
+		// Request user input using Scanner
+		System.out.println("Welcome to the Whack-A-Mole game!");
+		System.out.println();
+		System.out.println("To play this game you will be given 50 Whacks attempts to find 10 moles within a 10 x 10 grid.");
+		System.out.println();
+		System.out.println("Let's begin by entering your first Whack coordinates for where you think a mole is placed.");
+
 		
+		while ((attemptsLeft > 0)) {
+			System.out.println();
+			System.out.println("Enter a numeric value 0-9 as x,y coordinates attempt a Whack (e.g. 2,9):");
+			
+			// Declare the object and initialize
+			Scanner coordinates = new Scanner(System.in);
+		
+			// TBD
+			int x_input = coordinates.nextInt();
+			int y_input = coordinates.nextInt();
+			
+			System.out.println();
+			System.out.println("You entered " + x_input + "," + y_input + ".");
+			
+			myGame.whack(x_input, y_input);
+		}
 		
 	}
 
